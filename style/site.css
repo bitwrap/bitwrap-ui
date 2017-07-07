@@ -1,0 +1,41 @@
+body {
+    font-family: Georgia, serif;
+    min-width: 600px;
+    min-height: 800px;
+    background-color: #eee;
+}
+
+h1 {
+    margin: 4px;
+}
+
+header > * {
+    display: inline-block;
+}
+
+#description {
+    margin-left: 10px;
+    font-size: x-large;
+}
+
+#external-link {
+    font-size: smaller;
+    vertical-align: top;
+    margin-top: 10px;
+}
+
+h2 {
+    display: inline-block;
+    margin: 5px 0;
+}
+
+
+a#fork_me {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#app-layout {
+  margin-top: -24px;
+}
