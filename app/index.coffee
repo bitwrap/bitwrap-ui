@@ -1,11 +1,17 @@
-Controller = require('./controller.coffee')
-Api = require('./api.coffee')
+window.Handlebars = require('handlebars')
+window.Controller = require('./controller.coffee')
+window.Api = require('./api.coffee')
 
-module.exports = class
+$(document).ready =>
+  window.App = new Application()
+  window.App.start()
+
+class Application
 
   constructor: () ->
     @events = {}
     @dsl = require('./dsl.coffee')
+    @guid= require('uuid/v1')
 
     @templates = {
       machine: require('../templates/machine.js')
@@ -21,28 +27,7 @@ module.exports = class
 
     @.bind_events()
 
-
-  configure: (callback) =>
-    $.ajax( Bitwrap.config, {
-      dataType: 'json'
-      type: 'GET'
-      success: (c, textStatus) ->
-        callback(c)
-      error: (e) ->
-        console.log('__APP_CONFIG_FAILED__', e)
-    })
-
-  connect: (callback) =>
-    @.configure (cfg) =>
-      @config = cfg
-      callback(Api.open(@config.endpoint))
-
-
-  render: =>
-    App.nav.render($('#nav-menu'))
-    $(@events).trigger('App.render')
-
-  init: =>
+  start: =>
     @controller = new Controller(@)
     $(@events).trigger('App.init')
     App.nav = require('./navmenu.coffee')
@@ -51,8 +36,28 @@ module.exports = class
       @api = api
       App.render()
 
+  connect: (callback) =>
+    @.configure (cfg) =>
+      @config = cfg
+      callback(Api.open(@config.endpoint))
+
+  configure: (callback) =>
+    $.ajax( Bitwrap.config, {
+      dataType: 'json'
+      type: 'GET'
+      success: (c, textStatus) ->
+        callback(c)
+      error: (e) ->
+        console.error('__APP_CONFIG_FAILED__', e)
+    })
+
+  render: =>
+    App.nav.render($('#nav-menu'))
+    $(@events).trigger('App.render')
+
   bind_events: ->
 
     $(@events).on 'App.init', -> return
     $(@events).on 'App.render', -> return
     $(window).resize -> App.render()
+

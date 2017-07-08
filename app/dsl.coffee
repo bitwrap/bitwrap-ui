@@ -1,6 +1,6 @@
 module.exports = (cmd, term) ->
   window.__term = term
-  return -> window.CoffeeScript.eval("dsl.#{cmd}")
+  return -> window.CoffeeScript.eval("__dsl.#{cmd}")
 
 rpc = (method, params) ->
   App.api.rpc(
@@ -20,6 +20,18 @@ get = (path, space) ->
   )
   return
 
+exists = (schema, oid) ->
+  if ! oid
+    rpc('schema_exists', [schema])
+  else
+    rpc('stream_exists', [schema, oid])
+
+create = (schema, oid) ->
+  if ! oid
+    rpc('schema_create', [schema])
+  else
+    rpc('stream_create', [schema, oid])
+
 dispatch = (schema, oid, action, payload={}) ->
   App.api.dispatch(
     schema,
@@ -38,36 +50,29 @@ pp = (t, space) ->
   window.__term.echo(JSON.stringify(t, null, space))
   return
 
-# top level context for eval-ing code from coffeescript terminal
-window.dsl = {
+# context for eval-ing coffeescript terminal
+window.__dsl = {
 
   help: {
     commands: {
-      App: 'window.App'
-
       echo: '(obj) print to terminal'
       pp: '(obj) dump object to terminal'
-      _: '(obj) alias for pp'
+      _: 'alias for pp'
 
-      dispatch: '(schema, oid, action, payload) dispatch an event'
-      tx: '(schema, oid, aciton, payload) alias for dispatch'
+      event: '(schema, oid, action, payload) dispatch an event'
+      get: '(schema, eventid) get event by id'
 
-      schema_create: '(machine_name, schema_name) load machine as db schema'
-      schema_exists: '(schema) test that schema is loaded into db'
-      schema_destroy: '(schema) destroy schema and all associated data'
+      load: '(machine, schema) load machine as db schema'
+      create: '(schema, oid) create a new stream with default state'
+      destroy: '(schema) destroy schema and all associated data'
 
-      stream_exists: '(schmea, oid) test that stream is initalized'
-      stream_create: '(schema, oid) create a new stream with default state'
-
-      get_schemata: 'list all defined schemata'
-      get_machine: '(schema, space=2) get machine definition json'
+      schemata: 'list defined machine schemata'
+      machine: '(schema, space=2) get machine definition json'
       
-      get_stream: '(schema, oid) get all the events from a stream'
-      get_state: '(schema, oid) get the current state of a sream'
+      stream: '(schema, oid) get all the events from a stream'
+      state: '(schema, oid) get the HEAD event & state of a stream'
     }
   }
-
-  App: window.App
 
   echo: (t) ->
     window.__term.echo(t)
@@ -76,20 +81,19 @@ window.dsl = {
   pp: pp
   _: pp
 
-  dispatch: dispatch
-  tx: dispatch
+  schemata: () -> get("/schemata", 0)
 
-  schema_create: (machine_name, schema_name) -> rpc('schema_create', [machine_name, schema_name])
-  schema_exists: (schema) -> rpc('schema_exists', [schema])
-  schema_destroy: (schema) -> rpc('schema_destroy', [schema])
+  state: (schema, oid) -> get("/state/#{schema}/#{oid}", 2)
+  machine: (schema, space=2) -> get("/machine/#{schema}", space)
 
-  stream_exists: (schema, oid) -> rpc('stream_exists', [schema, oid])
-  stream_create: (schema, oid) -> rpc('stream_create', [schema, oid])
+  event: dispatch
+  stream: (schema, oid) -> get("/stream/#{schema}/#{oid}", 2)
+  get: (schema, eventid) -> get("/event/#{schema}/#{eventid}", 2)
 
-  get_schemata: () -> get("/schemata", 0)
-  get_machine: (schema, space=2) -> get("/machine/#{schema}", space)
+  exists: exists
+  load: (machine_name, schema_name) -> rpc('schema_create', [machine_name, schema_name])
+
+  create: (schema, oid) -> rpc('stream_create', [schema, oid])
+  destroy: (schema) -> rpc('schema_destroy', [schema])
   
-  get_stream: (schema, oid) -> get("/stream/#{schema}/#{oid}", 2)
-  get_state: (schema, oid) -> get("/state/#{schema}/#{oid}", 2)
-
 }

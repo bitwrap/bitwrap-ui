@@ -1,4 +1,4 @@
-var size = 40;
+var size = 80;
 
 module.exports = { 
 
@@ -6,7 +6,6 @@ module.exports = {
     draw_board(paper);
 
     for (e of events) {
-      console.log(e)
       var x = parseInt(e.action[1]);
       var y = parseInt(e.action[2]);
 

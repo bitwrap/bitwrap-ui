@@ -8,3 +8,76 @@ An interactive web console for bitwrap.io
 Start dev server with live-reload
 
     npm run dev
+
+### in-browser terminal
+
+The coffeescript terminal provides a set of commands
+that are translated into HTTP requests
+
+This is an easy way to to prototype and test state machine definitions.
+See an example of basic usage below:
+
+
+    Connected to http://127.0.0.1:8080
+    # type 'help' to list available commands
+    -> exists 'myproject'
+    false
+    -> load 'counter', 'myproject'
+    true
+    -> exists 'myproject'
+    true
+    -> exists 'myproject', 'foo'
+    false
+    -> create 'myproject', 'foo'
+    true
+    -> exists 'myproject', 'foo'
+    true
+    -> event 'myproject', 'foo', 'INC_0', { 'hello': 'world' }
+    {
+      "oid": "foo",
+      "rev": 1,
+      "id": "1a976d31dcc98118782fc314bd59dfda"
+    }
+    -> event 'myproject', 'foo', 'INC_0', { 'very': 'yiss' }
+    {
+      "oid": "foo",
+      "rev": 2,
+      "id": "d58bac164897b380fbea21027ad03e60"
+    }
+
+    -> state 'myproject', 'foo'
+    {
+      "created": "2017-07-07T13:48:16.354077",
+      "oid": "foo",
+      "rev": 2,
+      "modified": "2017-07-07T13:49:15.222088",
+      "payload": {
+        "very": "yiss"
+      },
+      "state": {
+        "p0": 2,
+        "p1": 0
+      },
+      "action": "INC_0",
+      "id": "d58bac164897b380fbea21027ad03e60"
+    }
+
+    -> stream 'myproject', 'foo'
+    {
+      "timestamp": "2017-07-07T13:49:15.222088",
+      "oid": "foo",
+      "id": "d58bac164897b380fbea21027ad03e60",
+      "seq": 2,
+      "payload": {
+        "very": "yiss"
+      }
+    },
+    {
+      "timestamp": "2017-07-07T13:48:42.198708",
+      "oid": "foo",
+      "id": "1a976d31dcc98118782fc314bd59dfda",
+      "seq": 1,
+      "payload": {
+        "hello": "world"
+      }
+    }

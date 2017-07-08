@@ -3,7 +3,7 @@
 var budo = require('budo');
 var coffeeify = require('coffeeify');
 
-budo('./main.js', {
+budo('./app/index.coffee', {
   serve: 'bundle.js',
   live: true,
   host: '127.0.0.1',

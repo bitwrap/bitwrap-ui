@@ -2,9 +2,6 @@ module.exports = class Octothorpe
 
   constructor: ->
     @guid = '000000000'
-    @valid_actions = []
-    @record = {}
-    @seq = 0
     @turn = 'O'
 
     @template = Handlebars.compile """
@@ -12,15 +9,15 @@ module.exports = class Octothorpe
         <div class="container">
           <p class="lead">
             Play Tic-Tac-Toe <br />
-            Using a Bitwrap State-Machine called <a href="https://github.com/bitwrap/bitwrap-io/blob/master/bitwrap_io/schemata/octothorpe.json"
-             target="_blank" >#octothorpe</a>
+            Using a Bitwrap State-Machine <a href="https://github.com/bitwrap/bitwrap-machine/tree/master/bitwrap_machine/examples"
+             target="_blank" >'octoe.xml'</a>
           </p>
           <button class='btn-info' id='redraw-game'>Redraw</button>
           <button class='btn-primary' id='reset-game'>Reset</button>
         </div>
       </div>
       <div class="container">
-      <svg id="octothrope-widget" width=300 height=300 ></svg>
+      <svg id="octothrope-widget" width=600 height=600 ></svg>
       </div>
         <div class="container">
           <p>Each click event on the board is submitted as a transform event.</p>
@@ -35,7 +32,6 @@ module.exports = class Octothorpe
 
   widget: (oid, name, id, callback) =>
     res = App.templates[name]
-    console.log('widget', res)
     url = App.config.endpoint + '/stream/octoe/' + oid
 
     $.getJSON(url, (stream) =>
@@ -44,19 +40,16 @@ module.exports = class Octothorpe
     )
 
 
-  take_move: (id, callback) =>
-    target = id.split('-')[1]
+  take_move: (id) =>
+    target = @turn + id.split('-')[1]
 
-    console.log('take move', id)
-    # FIXME 
-    #@.tx("#{@turn}#{target}",
-    #  {"msg": id },
-    #  (data) =>
-    #    @.next_turn()
-    #    console.log("TX/RX(octotothorpe, #{data.event.oid}, #{data.event.action})", data)
-    #    callback(data)
-    #  (err) => console.log('__ERR__', err)
-    #)
+    error = (e) => console.log 'move_error', e
+
+    App.api.dispatch('octoe', @guid, target, {}, (data) =>
+      @.next_turn()
+      @refresh()
+    , error
+    )
 
 
   render: (container) =>
@@ -68,20 +61,21 @@ module.exports = class Octothorpe
     $('#redraw-game').on('click', @refresh)
 
     $('#reset-game').on('click', =>
-      @guid = window.Guid.raw()
+      @guid = App.guid()
 
-      # TODO: create a new stream
-      #  @.tx('BEGIN',
-      #    {"msg": "ResetGame"}
-      #    (data) =>
-      #      @.next_turn()
-      #      refresh()
-      #      console.log("TX/RX(octotothorpe, #{data.event.oid}, #{data.event.action})", data)
-      #    (err) => console.log('__ERR__', err)
-      #  )
+      error = (e) => console.log 'octoe_error', e
+
+      App.api.rpc('stream_create', ['octoe', @guid ], (data) =>
+        App.api.dispatch('octoe', @guid, 'BEGIN', {}, (data) =>
+          @.next_turn()
+          @refresh()
+        , error
+        )
+      , error
+      )
     )
 
     @.widget(@guid, 'octothorpe', '#octothorpe-widget', =>
       $(".BG").on 'click', (obj) =>
-        @.take_move(obj.target.id, @refresh)
+        @.take_move(obj.target.id)
     )

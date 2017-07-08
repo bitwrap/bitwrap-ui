@@ -4,7 +4,7 @@
   "description": "bitwrap eventstore web-ui built with browserify, coffeescript, snap.svg, jquery",
   "main": "bundle.js",
   "scripts": {
-    "install": "browserify main.js -t coffeeify -o bundle.js",
+    "install": "browserify app/index.coffee -t coffeeify -o bundle.js",
     "upload": "gulp upload",
     "dev": "node server.js"
   },
@@ -20,7 +20,7 @@
     "browserify-handlebars": "^1.0.0",
     "budo": "^8.0.4",
     "coffeeify": "^2.0.1",
-    "guid": "0.0.12",
+    "uuid": "3.1.0",
     "handlebars": "^4.0.5"
   },
   "repository": {

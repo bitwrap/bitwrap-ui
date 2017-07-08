@@ -14,7 +14,6 @@ class Client
 
   rpc: (method, params=[], callback, errback) =>
     url = "#{@endpoint}/api"
-    console.log '__REQUEST__', JSON.stringify({ url: url, method: method, params: params})
 
  
     $.ajax( url, {
@@ -29,9 +28,8 @@ class Client
           errback(e) if errback
  
       error: (jqXHR, textStatus, errorThrown ) ->
-        if errback
-          errback()
-        console.log('__RPC_REQUEST_FAILED__', JSON.stringify([jqXHR, textStatus, errorThrown]))
+        errback() if errback
+        console.error('__RPC_REQUEST_FAILED__', JSON.stringify([jqXHR, textStatus, errorThrown]))
     })
  
 
@@ -58,7 +56,7 @@ class Client
 
       error: (jqXHR, textStatus, errorThrown ) ->
         errback() if errback
-        console.log('__EVENT_DISPATCH_FAILED__', JSON.stringify([jqXHR, textStatus, errorThrown]))
+        console.error('__EVENT_DISPATCH_FAILED__', JSON.stringify([jqXHR, textStatus, errorThrown]))
     })
 
 

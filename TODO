@@ -1,11 +1,11 @@
-Thu Jul  6 20:28:34 CDT 2017
+Fri Jul  7 21:56:07 CDT 2017
 
 WIP
-* test error handling for failed RPC calls
+
+* improve ui on tic-tac-toe page
+  * logs & events should appear correlated w/ svg interaction
+  * add terminal output to octothorpe page
 
 BACKLOG
 
-* update tic-tac-toe to work again
-  * should echo result or report error to terminal
-
-* ? use: https://api.jquery.com/jquery.deferred/ ?
+* ? try: https://api.jquery.com/jquery.deferred/ ?
