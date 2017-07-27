@@ -22,11 +22,7 @@ class Application
     @dsl = require('./dsl.coffee')
     @guid= require('uuid/v1')
 
-    @templates = {
-      machine: require('../templates/machine.js')
-      counter: require('../templates/counter.js')
-      octothorpe: require('../templates/octothorpe.js')
-    }
+    @templates = require('wrapserver')
 
     @pages = {
       '': require('../pages/index.coffee')

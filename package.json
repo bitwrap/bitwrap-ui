@@ -21,7 +21,8 @@
     "budo": "^8.0.4",
     "coffeeify": "^2.0.1",
     "uuid": "3.1.0",
-    "handlebars": "^4.0.5"
+    "handlebars": "^4.0.5",
+    "wrapserver": "git+https://github.com/bitwrap/wrapserver.git"
   },
   "repository": {
     "type": "git",

@@ -101,7 +101,7 @@ module.exports = class Octothorpe
       )
     )
 
-    @.widget(@guid, 'octothorpe', '#octothorpe-widget', (stream) =>
+    @.widget(@guid, 'octoe', '#octothorpe-widget', (stream) =>
       if stream[0]
         if 'X' == stream[0]['action'][0]
           @turn = 'O'
