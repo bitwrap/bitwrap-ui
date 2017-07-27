@@ -1,11 +1,25 @@
-Fri Jul  7 21:56:07 CDT 2017
+Wed Jul 26 23:46:28 CDT 2017
 
 WIP
-
-* improve ui on tic-tac-toe page
-  * logs & events should appear correlated w/ svg interaction
-  * add terminal output to octothorpe page
+* support loading of PNML from URLs via coffeescript console
+  * will require upstream changes to txbitwrap
 
 BACKLOG
+ * support cookies or html5 Storage
+   * https://github.com/julien-maurel/js-storage
 
-* ? try: https://api.jquery.com/jquery.deferred/ ?
+* build in-browser PNML designer/simulator
+
+ICEBOX:
+* enhance octoe demo - and or add a manual toggle vs auto
+  * perhaps simply use a different schema name
+    * if in 'manual' mode sent with BEGIN event? <- YES!!
+   * add a line to svg when game is completed
+
+ * support encrypted event payloads 
+   * https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/8.0.3/jsrsasign-all-min.js
+
+* build chat demo?
+  * periodically check the state of websocket to allow reconnect
+  * use web worker?
+* prototype card game using bitwrap events

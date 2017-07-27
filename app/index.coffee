@@ -2,6 +2,15 @@ window.Handlebars = require('handlebars')
 window.Controller = require('./controller.coffee')
 window.Api = require('./api.coffee')
 
+window.getUrlVars = ->
+  vars = []
+  hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')
+  for i in [0...hashes.length]
+    hash = hashes[i].split('=')
+    vars[hash[0]] = hash[1]
+
+  return vars
+
 $(document).ready =>
   window.App = new Application()
   window.App.start()

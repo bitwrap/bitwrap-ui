@@ -95,5 +95,7 @@ window.__dsl = {
 
   create: (schema, oid) -> rpc('stream_create', [schema, oid])
   destroy: (schema) -> rpc('schema_destroy', [schema])
+
+  job: (oid, payload) -> rpc('job_create', [oid, payload])
   
 }
