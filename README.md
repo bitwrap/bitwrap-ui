@@ -4,12 +4,36 @@
 
 An interactive web console for bitwrap.io
 
+### Project Status
+
+Preparing to release getbitwrap.com:
+
+A way to use bitwrap.io eventstore to generate SVG images by aggregating eventstream data.
+
+New Features:
+
+Render a visual aggregation of an event stream as an SVG image.
+* login w/ github to create streams
+* embed in Markdown or as "<img/>"
+* interactive JS widgets
+
+#### Roadmap: 
+
+Triggers & Crons
+* upon actions out in the world CI etc..
+  * automatically trigger an event
+
+Allow users to add customized JavaScript Templates
+* merge into front end UI
+* and SVG backend codebase
+
 ### Development
 Start dev server with live-reload
 
     npm run dev
 
-### in-browser terminal
+
+### Using provided in-browser terminal
 
 The coffeescript terminal provides a set of commands
 that are translated into HTTP requests

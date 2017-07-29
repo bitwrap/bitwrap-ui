@@ -8,7 +8,7 @@ template = Handlebars.compile """
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><img src="https://bitwrap.github.io/image/bw-logo3.svg" height=40 style=" margin-top: -11px;" ></a>
+      <a class="navbar-brand" href="/#"><img src="https://bitwrap.github.io/image/bw-logo3.svg" height=40 style=" margin-top: -11px;" ></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -25,7 +25,7 @@ template = Handlebars.compile """
         -->
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="https://github.com/bitwrap/bitwrap-io/wiki" target="_blank" >Wiki</a></li>
+        <li><a href="https://github.com/stackdump/txbitwrap/wiki" target="_blank" >Wiki</a></li>
         <li>
           <a href="https://twitter.com/bitwrapio" target="_blank">
           <span class="fa fa-twitter"></span> bitwrapio
@@ -33,7 +33,7 @@ template = Handlebars.compile """
         </li>
 
         <li>
-          <a href="https://github.com/bitwrap/bitwrap-io" target="_blank">
+          <a href="https://github.com/stackdump/txbitwrap" target="_blank">
           <span class="fa fa-github"></span> code 
           </a>
         </li>

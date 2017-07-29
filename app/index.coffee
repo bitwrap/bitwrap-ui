@@ -2,6 +2,15 @@ window.Handlebars = require('handlebars')
 window.Controller = require('./controller.coffee')
 window.Api = require('./api.coffee')
 
+window.getUrlVars = ->
+  vars = []
+  hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')
+  for i in [0...hashes.length]
+    hash = hashes[i].split('=')
+    vars[hash[0]] = hash[1]
+
+  return vars
+
 $(document).ready =>
   window.App = new Application()
   window.App.start()
@@ -13,11 +22,7 @@ class Application
     @dsl = require('./dsl.coffee')
     @guid= require('uuid/v1')
 
-    @templates = {
-      machine: require('../templates/machine.js')
-      counter: require('../templates/counter.js')
-      octothorpe: require('../templates/octothorpe.js')
-    }
+    @templates = require('wrapserver')
 
     @pages = {
       '': require('../pages/index.coffee')

@@ -1,4 +1,6 @@
 {
   "endpoint": "http://127.0.0.1:8080",
-  "encoding": "form"
+  "wrapserver": "http://127.0.0.1:8000",
+  "encoding": "json",
+  "use_websocket": true
 }
