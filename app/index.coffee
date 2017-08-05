@@ -18,6 +18,7 @@ $(document).ready =>
 class Application
 
   constructor: () ->
+    @build = '20170805'
     @events = {}
     @dsl = require('./dsl.coffee')
     @guid= require('uuid/v1')
@@ -28,6 +29,8 @@ class Application
       '': require('../pages/index.coffee')
       '#octothorpe': require('../pages/octothrope.coffee')
       '#terminal': require('../pages/terminal.coffee')
+      '#editor': require('../pages/editor.coffee')
+      '#svg': require('../pages/svg.coffee')
     }
 
     @.bind_events()

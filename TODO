@@ -1,22 +1,33 @@
-Fri Jul 28 22:46:47 CDT 2017
+Mon Jul 31 08:33:36 CDT 2017
 
 WIP
+===
 
-* allow Tic-Tac-Toe to work when websocket it not available
+* create new template - PNML viewer
+  * add controls - allow drag & drop
+    * place
+    * items
+  * click to add arcs 
 
 BACKLOG
-* new template - PNML viewer
-* Create a Swagger spec for the site - or use the one from api-gateway?
-* Add Github Auth
+=======
 
-ICEBOX:
+* build in-browser PNML editor/simulator
+
+* Add Github Auth
+* allow publishing new machine/PNML schemata
+  * to github?
+  * to bitwrap eventstore ?
+
+ICEBOX
+======
+* Create a Swagger spec for the site - or use the one from api-gateway?
+
 * support loading of PNML from URLs via coffeescript console
   * will require upstream changes to txbitwrap
 
  * support cookies or html5 Storage
    * https://github.com/julien-maurel/js-storage
-
-* build in-browser PNML designer/simulator
 
 * enhance octoe demo - and or add a manual toggle vs auto
   * perhaps simply use a different schema name
@@ -29,4 +40,10 @@ ICEBOX:
 * build chat demo?
   * periodically check the state of websocket to allow reconnect
   * use web worker?
-* prototype card game using bitwrap events
+
+* non-board-game demo:
+  * card game using bitwrap events
+  * bowling - where pins are situated at varying angles - and you click to roll the ball
+    * don't get windup.. only trajectory
+  * scortched earth clone ?
+

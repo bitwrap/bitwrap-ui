@@ -16,6 +16,7 @@ template = Handlebars.compile """
       <ul class="nav navbar-nav">
         <li><a href="#terminal">Terminal</a></li>
         <li><a href="#octothorpe">TicTacToe</a></li>
+        <li><a href="#editor">PNML Editor</a></li>
         <!--
         <li class="dropdown">
           <a href="#projects" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Demo Projects<span class="caret"></span></a>
