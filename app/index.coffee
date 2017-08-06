@@ -27,6 +27,8 @@ class Application
 
     @pages = {
       '': require('../pages/index.coffee')
+      '#login': require('../pages/login.coffee')
+      '#logout': require('../pages/logout.coffee')
       '#octothorpe': require('../pages/octothrope.coffee')
       '#terminal': require('../pages/terminal.coffee')
       '#editor': require('../pages/editor.coffee')

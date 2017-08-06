@@ -1,27 +1,34 @@
-Mon Jul 31 08:33:36 CDT 2017
+Sun Aug  6 14:19:22 CDT 2017
 
 WIP
 ===
 
-* create new template - PNML viewer
-  * add controls - allow drag & drop
-    * place
-    * items
-  * click to add arcs 
+* add authentication w/ AWS cognito API
 
 BACKLOG
 =======
 
 * build in-browser PNML editor/simulator
+  * create new template - PNML viewer
+    * add controls - allow drag & drop
+      * place
+      * items
+    * click to add arcs 
+
+* allow publishing new machine/PNML schemata definitions
+  * to bitwrap eventstore
+
+* Add websocket support for Lambda/API gateway Deployment
+  * https://github.com/jimmyn/aws-mqtt-client
 
 * Add Github Auth
-* allow publishing new machine/PNML schemata
-  * to github?
-  * to bitwrap eventstore ?
+  * support others? what does Gateway API support?
 
 ICEBOX
 ======
-* Create a Swagger spec for the site - or use the one from api-gateway?
+* Create a Swagger spec
+  * add better descriptions and docs to api-gateway spec
+  * export and make available from frontend app
 
 * support loading of PNML from URLs via coffeescript console
   * will require upstream changes to txbitwrap
