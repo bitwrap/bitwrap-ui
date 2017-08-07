@@ -2,5 +2,12 @@
   "endpoint": "http://127.0.0.1:8080",
   "wrapserver": "http://127.0.0.1:8000",
   "encoding": "json",
-  "use_websocket": true
+  "use_websocket": true,
+  "AWS": {
+    "region": "us-east-1",
+    "cognito": {
+      "IdentityPoolId": "us-east-1:e975048d-9b78-4639-9465-d2ba4b3c7af2"
+    }
+  }
+
 }

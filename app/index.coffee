@@ -1,6 +1,7 @@
 window.Handlebars = require('handlebars')
 window.Controller = require('./controller.coffee')
 window.Api = require('./api.coffee')
+window.AWS = AWSCognito
 
 window.getUrlVars = ->
   vars = []
@@ -49,6 +50,31 @@ class Application
   connect: (callback) =>
     @.configure (cfg) =>
       @config = cfg
+
+      AWS.config.region = @config.AWS.region
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials(@config.AWS.cognito)
+      
+      AWS.config.credentials.get (err) =>
+        if (err)
+          console.log("Error: "+err)
+          return
+      
+        console.log("Cognito Identity Id: " + AWS.config.credentials.identityId)
+        console.log(AWS.config)
+      
+        # Other service clients will automatically use the Cognito Credentials provider
+        # configured in the JavaScript SDK.
+        #cognitoSyncClient = new AWS.CognitoSync()
+
+        #_err = (err, data) =>
+        #  if ( !err )
+        #    console.log(JSON.stringify(data))
+        #
+        #cognitoSyncClient.listDatasets({
+        #    IdentityId: AWS.config.credentials.identityId,
+        #    IdentityPoolId: @config.AWS.cognito.IdentityPoolId
+        #}, _err)
+  
       callback(Api.open(@config.endpoint))
 
   configure: (callback) =>
