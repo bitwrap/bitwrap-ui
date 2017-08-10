@@ -1,8 +1,11 @@
+# create front-end coffeescript terminal bindings
+
 module.exports = (cmd, term) ->
   window.__term = term
   return -> window.CoffeeScript.eval("__dsl.#{cmd}")
 
 rpc = (method, params) ->
+  # TODO: pass App.session.id as auth header
   App.api.rpc(
     method,
     params,
@@ -15,6 +18,7 @@ rpc = (method, params) ->
   return
 
 get = (path, space) ->
+  # TODO: pass App.session.id as auth header
   $.getJSON( App.api.endpoint + path,
     (res) -> pp(res, space)
   )
@@ -33,6 +37,7 @@ create = (schema, oid) ->
     rpc('stream_create', [schema, oid])
 
 dispatch = (schema, oid, action, payload={}) ->
+  # TODO: pass App.session.id as auth header
   App.api.dispatch(
     schema,
     oid,
@@ -55,6 +60,7 @@ window.__dsl = {
 
   help: {
     commands: {
+      login: '() login with github'
       echo: '(obj) print to terminal'
       pp: '(obj) dump object to terminal'
       _: 'alias for pp'
@@ -80,6 +86,21 @@ window.__dsl = {
 
   pp: pp
   _: pp
+
+  token: () -> App.session.id
+
+  login: () ->
+    if App.config.auth && ! App.session
+      key = App.config.auth['provider']
+      cfg = App.config.auth[key]
+      uri = "#{cfg.oauth_uri}?redirect_uri=#{cfg.redirect_uri}&client_id=#{cfg.client_id}"
+      window.location.href=uri
+      return 'redirecting for login: '+ cfg.oauth_uri
+
+    if App.session
+      return 'already logged in'
+
+    return 'login disabled'
 
   schemata: () -> get("/schemata", 0)
 

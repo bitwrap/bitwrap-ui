@@ -4,6 +4,7 @@ template = Handlebars.compile """
 
 greeting = Handlebars.compile """
 Connected to {{ endpoint }}
+token: {{ token }}
 # type 'help' to list available commands
 """
 
@@ -30,6 +31,7 @@ module.exports = class
     ,{
         greetings: greeting({
           endpoint: App.config.endpoint
+          token: App.session.id || '-unauthenticated-'
         }),
         name: 'bitwrap-ui',
         prompt: '-> '

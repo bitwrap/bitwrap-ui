@@ -82,16 +82,17 @@ module.exports = class Octothorpe
 
   render: (container) =>
 
-    @game_id = window.getUrlVars().session
+    @refresh = => @.render(container)
+
+    @game_id = App.request.session
+
+    if not @guid && @game_id
+      @guid = @game_id
+
     if not @guid
-      if @game_id
-        @guid = @game_id
-      else
-        @guid = '000000000'
+      @guid = '000000000'
 
     container.html _template('guid': @guid, 'wrapserver': App.config.wrapserver)
-
-    @refresh = => @.render(container)
 
     @.subscribe() if App.config.use_websocket
 
@@ -105,10 +106,8 @@ module.exports = class Octothorpe
         @ws.send(JSON.stringify({'unbind': ['octoe', @guid]}))
         @ws.send(JSON.stringify({'bind': ['octoe', newguid]}))
 
-      if @game_id
-        @guid = @game_id
-      else
-        @guid = newguid
+      delete @game_id
+      @guid = newguid
 
       error = (e) => console.log 'octoe_error', e
 

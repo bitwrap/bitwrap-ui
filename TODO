@@ -1,49 +1,50 @@
-Mon Jul 31 08:33:36 CDT 2017
+Wed Aug  9 22:21:48 CDT 2017
 
 WIP
 ===
 
-* create new template - PNML viewer
-  * add controls - allow drag & drop
-    * place
-    * items
-  * click to add arcs 
+* Add Github Auth - integrate w/ txbitwrap
+  * user permissions ??
 
 BACKLOG
 =======
 
-* build in-browser PNML editor/simulator
+* finish in-browser PNML editor/simulator
 
-* Add Github Auth
-* allow publishing new machine/PNML schemata
-  * to github?
-  * to bitwrap eventstore ?
+* allow publishing new machine/PNML schemata definitions
+  * to an eventstream
+
+* Keen.io dashboard integration
+  * proxy permissions in front of requests?
+  * session support
 
 ICEBOX
 ======
-* Create a Swagger spec for the site - or use the one from api-gateway?
 
-* support loading of PNML from URLs via coffeescript console
+* support loading of PNML/json from URLs via coffeescript console
   * will require upstream changes to txbitwrap
 
  * support cookies or html5 Storage
    * https://github.com/julien-maurel/js-storage
 
-* enhance octoe demo - and or add a manual toggle vs auto
-  * perhaps simply use a different schema name
-    * if in 'manual' mode sent with BEGIN event? <- YES!!
-   * add a line to svg when game is completed
-
- * support encrypted event payloads 
-   * https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/8.0.3/jsrsasign-all-min.js
+* Create a Swagger spec
+  * add better descriptions and docs to api-gateway spec
+  * export and make available from frontend app
 
 * build chat demo?
   * periodically check the state of websocket to allow reconnect
   * use web worker?
 
 * non-board-game demo:
-  * card game using bitwrap events
-  * bowling - where pins are situated at varying angles - and you click to roll the ball
-    * don't get windup.. only trajectory
+  * card game
   * scortched earth clone ?
 
+* add authentication w/ AWS cognito API
+  * https://bitwrap.auth.us-east-1.amazoncognito.com/signup?redirect_uri=https://txbitwrap.stackdump.com/%23login&response_type=code&client_id=4nrh45iftued2enb5qi6b4oc58
+  * http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-assign-domain.html
+  * may have to add lambda post-login hook
+  * Add websocket support for Lambda/API gateway Deployment
+    * https://github.com/jimmyn/aws-mqtt-client
+
+ * support encrypted event payloads 
+   * https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/8.0.3/jsrsasign-all-min.js

@@ -15,15 +15,8 @@ template = Handlebars.compile """
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="#terminal">Terminal</a></li>
-        <li><a href="#octothorpe">TicTacToe</a></li>
         <li><a href="#editor">PNML Editor</a></li>
-        <!--
-        <li class="dropdown">
-          <a href="#projects" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Demo Projects<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          </ul>
-        </li>
-        -->
+        <li><a href="#octothorpe">TicTacToe</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="https://github.com/stackdump/txbitwrap/wiki" target="_blank" >Wiki</a></li>
@@ -38,6 +31,7 @@ template = Handlebars.compile """
           <span class="fa fa-github"></span> code 
           </a>
         </li>
+        <li><a href="{{profile_link}}">{{profile_label}}</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -47,5 +41,15 @@ template = Handlebars.compile """
 module.exports = {
   render: (container) ->
 
-    container.html template()
+    if App.session
+      link = '?logout'
+      label = 'Logout'
+    else
+      link = '#login'
+      label = 'Login'
+
+    container.html template(
+      'profile_link': link,
+      'profile_label': label
+    )
 }

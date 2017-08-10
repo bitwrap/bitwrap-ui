@@ -1,6 +1,15 @@
 {
-  "endpoint": "http://127.0.0.1:8080",
-  "wrapserver": "http://127.0.0.1:8000",
+  "endpoint": "https://api-qa.bitwrap.io",
+  "wrapserver": "https://svg-qa.bitwrap.io",
   "encoding": "json",
-  "use_websocket": true
+  "use_websocket": true,
+  "auth": {
+    "provider": "github",
+    "github": {
+      "oauth_uri": "https://github.com/login/oauth/authorize",
+      "redirect_uri": "http://127.0.0.1:8880",
+      "client_id": "275c26586c269225b759"
+    }
+  }
+
 }

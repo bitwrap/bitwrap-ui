@@ -1,53 +1,45 @@
 window.Handlebars = require('handlebars')
-window.Controller = require('./controller.coffee')
-window.Api = require('./api.coffee')
-
-window.getUrlVars = ->
-  vars = []
-  hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')
-  for i in [0...hashes.length]
-    hash = hashes[i].split('=')
-    vars[hash[0]] = hash[1]
-
-  return vars
+Controller = require('./controller.coffee')
+Api = require('./api.coffee')
 
 $(document).ready =>
   window.App = new Application()
-  window.App.start()
+  App.start()
 
 class Application
 
   constructor: () ->
-    @build = '20170805'
+    @build = '20170808'
     @events = {}
     @dsl = require('./dsl.coffee')
     @guid= require('uuid/v1')
-
     @templates = require('wrapserver')
+    @session = false
+    @request = []
 
     @pages = {
       '': require('../pages/index.coffee')
+      '#login': require('../pages/login.coffee')
+      '#logout': require('../pages/logout.coffee')
       '#octothorpe': require('../pages/octothrope.coffee')
       '#terminal': require('../pages/terminal.coffee')
       '#editor': require('../pages/editor.coffee')
       '#svg': require('../pages/svg.coffee')
     }
 
-    @.bind_events()
-
   start: =>
     @controller = new Controller(@)
-    $(@events).trigger('App.init')
     App.nav = require('./navmenu.coffee')
 
-    App.connect (api) =>
-      @api = api
-      App.render()
-
-  connect: (callback) =>
     @.configure (cfg) =>
       @config = cfg
-      callback(Api.open(@config.endpoint))
+      @api = Api.open(@config.endpoint)
+      App.render()
+
+    $(window).resize -> App.render()
+
+    $(App.events).on 'App.render', ->
+      App.nav.render($('#nav-menu'))
 
   configure: (callback) =>
     $.ajax( Bitwrap.config, {
@@ -60,12 +52,4 @@ class Application
     })
 
   render: =>
-    App.nav.render($('#nav-menu'))
     $(@events).trigger('App.render')
-
-  bind_events: ->
-
-    $(@events).on 'App.init', -> return
-    $(@events).on 'App.render', -> return
-    $(window).resize -> App.render()
-
