@@ -59,5 +59,33 @@ class Client
         console.error('__EVENT_DISPATCH_FAILED__', JSON.stringify([jqXHR, textStatus, errorThrown]))
     })
 
+  broadcast: (schema, eventid, action=False, payload={}, callback, errback) =>
+    url = "#{@endpoint}/broadcast/#{schema}/#{eventid}"
+
+
+    args = {
+      schema: schema,
+      payload: payload
+    }
+
+    if action
+      args['action'] = action
+
+    $.ajax( url, {
+      type: 'POST'
+      data: @prefix+JSON.stringify(args),
+      processData: false,
+      contentType: @content_encoding,
+      success: (e, textStatus) ->
+        if e.seq
+          callback(e) if callback
+        else
+          errback(e) if errback
+
+      error: (jqXHR, textStatus, errorThrown ) ->
+        errback() if errback
+        console.error('__MESSAGE_BROADCAST_FAILED__', JSON.stringify([jqXHR, textStatus, errorThrown]))
+    })
+
 
 module.exports.open = (endpoint) -> new Client(endpoint)

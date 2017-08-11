@@ -1,6 +1,6 @@
 {
-  "endpoint": "https://api-qa.bitwrap.io",
-  "wrapserver": "https://svg-qa.bitwrap.io",
+  "endpoint": "http://127.0.0.1:8080",
+  "wrapserver": "http://127.0.0.1:8000",
   "encoding": "json",
   "use_websocket": true,
   "auth": {

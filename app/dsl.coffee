@@ -38,11 +38,19 @@ create = (schema, oid) ->
 
 dispatch = (schema, oid, action, payload={}) ->
   # TODO: pass App.session.id as auth header
-  App.api.dispatch(
-    schema,
-    oid,
-    action,
-    payload,
+  App.api.dispatch( schema, oid, action, payload,
+    (res) ->
+      pp(res, 2)
+    ,
+    (err) ->
+      pp '__err__'
+      pp err
+  )
+  return
+
+broadcast = (schema, oid, action=false, payload={}) ->
+  # TODO: pass App.session.id as auth header
+  App.api.broadcast( schema, oid, action, payload,
     (res) ->
       pp(res, 2)
     ,
@@ -108,6 +116,7 @@ window.__dsl = {
   machine: (schema, space=2) -> get("/machine/#{schema}", space)
 
   event: dispatch
+  msg: broadcast
   stream: (schema, oid) -> get("/stream/#{schema}/#{oid}", 2)
   get: (schema, eventid) -> get("/event/#{schema}/#{eventid}", 2)
 
