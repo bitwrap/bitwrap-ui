@@ -48,14 +48,15 @@ dispatch = (schema, oid, action, payload={}) ->
   )
   return
 
-broadcast = (schema, oid, action=false, payload={}) ->
+broadcast = (schema, key, payload={}) ->
   # TODO: pass App.session.id as auth header
-  App.api.broadcast( schema, oid, action, payload,
+  App.api.broadcast( schema, key, payload,
     (res) ->
       pp(res, 2)
     ,
     (err) ->
-      pp err
+      pp '__err__'
+      pp err, 2
   )
   return
 

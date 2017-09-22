@@ -1,15 +1,23 @@
-Wed Aug  9 22:21:48 CDT 2017
+Thu Sep 21 21:40:55 CDT 2017
 
 WIP
 ===
 
-* Add Github Auth - integrate w/ txbitwrap
-  * user permissions ??
+* in-browser PNML editor/simulator
 
 BACKLOG
 =======
 
-* finish in-browser PNML editor/simulator
+
+* Add Github Auth - integrate w/ txbitwrap
+  * user permissions ??
+
+* allow long term pnml storage
+  * on github ?
+  * or S3 ?
+
+ICEBOX
+======
 
 * allow publishing new machine/PNML schemata definitions
   * to an eventstream
@@ -17,9 +25,6 @@ BACKLOG
 * Keen.io dashboard integration
   * proxy permissions in front of requests?
   * session support
-
-ICEBOX
-======
 
 * support loading of PNML/json from URLs via coffeescript console
   * will require upstream changes to txbitwrap
